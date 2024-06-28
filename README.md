@@ -8,18 +8,18 @@ Admin Token Remover for OpenCart
 2. Copy `admin_token_remover.ocmod.xml` file to `/system` directory;
 3. Update modification cache and login again.
 
-## Issues
-
-Q. Session timeout changed to 1 hour
-A. Check `session.cookie_lifetime` directive
-
-Q. Can't login into admin panel
-A. Make sure that cookies enabled in your browser
-
 ## Uninstall
 
 2. Remove `admin_token_remover.ocmod.xml` file from `/system` directory;
 3. Update modification cache and login again.
+
+## Issues
+
+Q. Session timeout changed to 1 hour\
+A. Check `session.cookie_lifetime` directive
+
+Q. Can't login into admin panel\
+A. Make sure that cookies enabled in your browser
 
 ## License
 
