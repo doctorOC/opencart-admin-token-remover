@@ -1,2 +1,2 @@
-# admin-token-remover
+# opencart-admin-token-remover
 Admin Token Remover for OpenCart
