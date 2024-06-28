@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+LICENSE CC BY-NC-SA 4.0
+
+This source file is subject to the Attribution-NonCommercial-ShareAlike 4.0 International License
+It is also available through the world-wide-web at this URL:
+https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
+
+@package    Admin Token Remover
+@copyright  Copyright (c) 2020 drOC
+@license    https://creativecommons.org/licenses/by-nc-sa/4.0/
+
+-->
+<modification>
+  <name>Admin Token Remover</name>
+  <code>admin_token_remover</code>
+  <version>1.0</version>
+  <author>doctorOC</author>
+  <link>https://github.com/doctorOC/opencart-admin-token-remover</link>
+  <file path="system/library/request.php">
+    <operation>
+      <search><![CDATA[public function __construct() {]]></search>
+      <add position="after">
+        <![CDATA[
+          if(isset($_COOKIE['token']) && isset($_SERVER['REQUEST_URI']) && false !== strpos($_SERVER['REQUEST_URI'], '/admin/')) {
+            $_GET['token'] = $_COOKIE['token'];
+          }
+        ]]>
+      </add>
+    </operation>
+  </file>
+  <file path="admin/controller/common/login.php">
+    <operation>
+      <search><![CDATA[$this->session->data['token'] = token(32);]]></search>
+      <add position="after">
+        <![CDATA[
+          setcookie('token',
+                    $this->session->data['token'],
+                    ini_get('session.cookie_lifetime'),
+                    ini_get('session.cookie_path'),
+                    ini_get('session.cookie_domain'),
+                    ini_get('session.cookie_secure'),
+                    ini_get('session.cookie_httponly'));
+        ]]>
+      </add>
+    </operation>
+    <operation>
+      <search><![CDATA[$this->response->redirect($this->request->post['redirect'] . '&token=' . $this->session->data['token']);]]></search>
+      <add position="replace">
+        <![CDATA[
+          $this->response->redirect($this->request->post['redirect']);
+        ]]>
+      </add>
+    </operation>
+  </file>
+  <file path="system/library/url.php">
+    <operation>
+      <search><![CDATA[if ($args) {]]></search>
+      <add position="before">
+        <![CDATA[
+          if ($args && isset($_SERVER['REQUEST_URI']) && false !== strpos($_SERVER['REQUEST_URI'], '/admin/')) {
+            parse_str($args, $args_array);
+            if (isset($args_array['token'])) {
+              unset($args_array['token']);
+              $args_data = [];
+              foreach ($args_array as $key => $value) {
+                $args_data[] = "{$key}={$value}";
+              }
+              $args = implode('&', $args_data);
+            }
+          }
+        ]]>
+      </add>
+    </operation>
+  </file>
+  <file path="admin/view/template/*/*.tpl">
+    <operation>
+    <search regex="true"><![CDATA[/(.*)\&token=\<\?php echo \$token; \?\>(.*)/ui]]></search>
+      <add position="after"><![CDATA[
+        $1$2
+      ]]></add>
+    </operation>
+  </file>
+  <file path="admin/view/template/extension/*/*.tpl">
+    <operation>
+    <search regex="true"><![CDATA[/(.*)\&token=\<\?php echo \$token; \?\>(.*)/ui]]></search>
+      <add position="after"><![CDATA[
+        $1$2
+      ]]></add>
+    </operation>
+  </file>
+</modification>
