@@ -1,6 +1,11 @@
 # opencart-admin-token-remover
 
-Admin Token Remover for OpenCart
+Admin Token Remover for OpenCart, compatible with ocStore
+
+## Editions
+
+* [OpenCart 3.x](https://github.com/doctorOC/opencart-admin-token-remover)
+* [OpenCart 2.x](https://github.com/doctorOC/opencart-admin-token-remover/tree/opencart-2.x)
 
 ## Install
 
