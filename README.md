@@ -23,7 +23,7 @@ A. Make sure that cookies enabled in your browser
 
 ## License
 
-This source file is subject to the Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0)
+Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0)
 
 It is also available through the world-wide-web at this URL:\
 https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
